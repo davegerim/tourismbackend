@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
-export class CreateAttractionplaceDto {
+export class CreateHotelDto {
   @ApiProperty()
   @IsString()
-  placeName: string;
+  hotelName: string;
 
   @ApiProperty()
   @IsString()
@@ -13,16 +13,4 @@ export class CreateAttractionplaceDto {
   @ApiProperty()
   @IsString()
   image: string;
-
-  @ApiProperty()
-  @IsString()
-  price: string;
-
-  @ApiProperty()
-  @IsString()
-  rate: string;
-
-  @ApiProperty()
-  @IsString()
-  cityId: string;
 }

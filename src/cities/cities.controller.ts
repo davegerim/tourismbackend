@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CitiesService } from './cities.service';
 import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('cities')
 export class CitiesController {
@@ -19,6 +22,13 @@ export class CitiesController {
   @Post('/new')
   create(@Body() createCityDto: CreateCityDto) {
     return this.citiesService.create(createCityDto);
+  }
+  @Post('upload-image')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(@UploadedFile() file, @Body() body) {
+    const cityId = body.cityId;
+    const imageData = file.buffer;
+    await this.citiesService.saveImage(cityId, imageData);
   }
 
   @Get()
@@ -29,6 +39,11 @@ export class CitiesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.citiesService.findOne(id);
+  }
+
+  @Get('/attractionPlace/:id')
+  findOneByCity(@Param('id') id: string) {
+    return this.citiesService.getAttractionPlace(id);
   }
 
   @Patch('/:id')

@@ -38,7 +38,7 @@ export class ProfileService {
   }
 
   findAll() {
-    return `This action returns all profile`;
+    return this.repo.find();
   }
 
   findOne(id: number) {

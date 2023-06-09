@@ -7,17 +7,28 @@ import { City } from './entities/city.entity';
 
 @Injectable()
 export class CitiesService {
+  async getAttractionPlace(id: string) { //   return `This action updates a #${id} city`;
+    var city = await this.repo.findOneBy({ id });
+    return city.attractionplace1;
+  }
   constructor(
     @InjectRepository(City)
     private readonly repo: Repository<City>,
   ) {}
   async create(createProfileDto: CreateCityDto): Promise<CreateCityDto> {
+    console.log(createProfileDto);
+
     const { cityName, description, image } = createProfileDto;
     const city = new City();
     city.cityName = cityName;
     city.description = description;
     city.image = image;
     return await this.repo.save(city);
+  }
+  async saveImage(cityId: number, imageData: string) {
+    const city = await this.repo.findOne({ where: { id: cityId.toString() } });
+    city.image = imageData;
+    await this.repo.save(city);
   }
 
   findAll() {

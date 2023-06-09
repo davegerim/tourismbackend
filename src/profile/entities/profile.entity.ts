@@ -41,7 +41,7 @@ export class Profile {
   @Column()
   role: string;
 
-  @OneToOne(() => User, (user) => user.profile) // specify inverse side as a second parameter
+  @OneToOne(() => User, (user) => user.profile, { eager: true }) // specify inverse side as a second parameter
   user: User;
 
   @AfterInsert()

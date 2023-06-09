@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,10 +19,13 @@ export class City {
   @Column()
   description: string;
 
-  @Column({ nullable: true })
+  @Column()
   image: string;
 
-  @OneToOne(() => Attractionplace, (attractionplace1) => attractionplace1.City1)
-  @JoinColumn()
+  @OneToMany(
+    () => Attractionplace,
+    (attractionplace1) => attractionplace1.City1,
+    { eager: true },
+  )
   attractionplace1: Attractionplace;
 }

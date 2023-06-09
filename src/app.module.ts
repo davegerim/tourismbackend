@@ -15,6 +15,12 @@ import { City } from './cities/entities/city.entity';
 import { AttractionplaceModule } from './attractionplace/attractionplace.module';
 import { Attractionplace } from './attractionplace/entities/attractionplace.entity';
 import { BookingModule } from './booking/booking.module';
+import { HotelModule } from './hotel/hotel.module';
+import { Hotel } from './hotel/entities/hotel.entity';
+import { HotelreservationModule } from './hotelreservation/hotelreservation.module';
+import { Hotelreservation } from './hotelreservation/entities/hotelreservation.entity';
+import { FlightModule } from './flight/flight.module';
+import { Flight } from './flight/entities/flight.entity';
 
 @Module({
   imports: [
@@ -28,7 +34,16 @@ import { BookingModule } from './booking/booking.module';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
-        entities: [Profile, User, Location, City, Attractionplace],
+        entities: [
+          Profile,
+          User,
+          Location,
+          City,
+          Attractionplace,
+          Hotel,
+          Hotelreservation,
+          Flight,
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -45,6 +60,12 @@ import { BookingModule } from './booking/booking.module';
     AttractionplaceModule,
 
     BookingModule,
+
+    HotelModule,
+
+    HotelreservationModule,
+
+    FlightModule,
   ],
   controllers: [AppController],
   providers: [AppService],
