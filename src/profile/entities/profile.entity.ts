@@ -15,31 +15,10 @@ export class Profile {
   id: string;
 
   @Column()
-  firstName: string;
+  fullName: string;
 
   @Column()
-  middleName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  birthDate: string;
-
-  @Column()
-  age: string;
-
-  @Column()
-  gender: string;
-
-  @Column()
-  role: string;
+  userName: string;
 
   @OneToOne(() => User, (user) => user.profile, { eager: true }) // specify inverse side as a second parameter
   user: User;

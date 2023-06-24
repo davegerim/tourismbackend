@@ -14,7 +14,9 @@ import { HotelService } from './hotel.service';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Public } from 'src/auth/jwt-public';
 
+@Public()
 @Controller('hotel')
 export class HotelController {
   constructor(private readonly hotelService: HotelService) {}

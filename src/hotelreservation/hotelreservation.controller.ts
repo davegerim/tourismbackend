@@ -11,7 +11,8 @@ import {
 import { HotelreservationService } from './hotelreservation.service';
 import { CreateHotelreservationDto } from './dto/create-hotelreservation.dto';
 import { UpdateHotelreservationDto } from './dto/update-hotelreservation.dto';
-
+import { Public } from 'src/auth/jwt-public';
+@Public()
 @Controller('hotelreservation')
 export class HotelreservationController {
   constructor(

@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AttractionplaceService } from './attractionplace.service';
 import { CreateAttractionplaceDto } from './dto/create-attractionplace.dto';
 import { UpdateAttractionplaceDto } from './dto/update-attractionplace.dto';
-
+import { Public } from 'src/auth/jwt-public';
+@Public()
 @Controller('attractionplace')
 export class AttractionplaceController {
   constructor(
@@ -29,7 +31,7 @@ export class AttractionplaceController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.attractionplaceService.findOne(+id);
+    return this.attractionplaceService.findOne(id);
   }
 
   @Patch(':id')
@@ -40,8 +42,8 @@ export class AttractionplaceController {
     return this.attractionplaceService.update(+id, updateAttractionplaceDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attractionplaceService.remove(+id);
+  @Delete('/:id')
+  deleteProfile(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.attractionplaceService.remove(id);
   }
 }

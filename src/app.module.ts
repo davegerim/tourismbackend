@@ -21,6 +21,12 @@ import { HotelreservationModule } from './hotelreservation/hotelreservation.modu
 import { Hotelreservation } from './hotelreservation/entities/hotelreservation.entity';
 import { FlightModule } from './flight/flight.module';
 import { Flight } from './flight/entities/flight.entity';
+import { TripreservationModule } from './tripreservation/tripreservation.module';
+import { Tripreservation } from './tripreservation/entities/tripreservation.entity';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -43,12 +49,13 @@ import { Flight } from './flight/entities/flight.entity';
           Hotel,
           Hotelreservation,
           Flight,
+          Tripreservation,
         ],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
-
+    AuthModule,
     ProfileModule,
 
     UserModule,
@@ -66,8 +73,23 @@ import { Flight } from './flight/entities/flight.entity';
     HotelreservationModule,
 
     FlightModule,
+    AuthModule,
+
+    TripreservationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

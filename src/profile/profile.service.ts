@@ -1,42 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { profile } from 'console';
+import { UserRoleType } from 'src/user/enums/user-role.enum';
+import { UserService } from 'src/user/user.service';
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Profile)
-    private readonly repo: Repository<Profile>,
+    private repo: Repository<Profile>,
+    private userService: UserService,
   ) {}
 
-  async create(createProfileDto: CreateProfileDto): Promise<CreateProfileDto> {
-    const {
-      firstName,
-      middleName,
-      lastName,
-      gender,
-      age,
-      birthDate,
-      password,
-      email,
-      role,
-    } = createProfileDto;
-    const profile = new Profile();
-    profile.firstName = firstName;
-    profile.middleName = middleName;
-    profile.lastName = lastName;
-    profile.gender = gender;
-    profile.age = age;
-    profile.birthDate = birthDate;
-    profile.password = password;
-    profile.email = email;
-    profile.role = role;
-    return await this.repo.save(profile);
-  }
+  // async create(createProfileDto: CreateProfileDto): Promise<CreateProfileDto> {
+  //   const { fullName, userName, email, password } = createProfileDto;
+  //   const profile = new Profile();
+  //   profile.fullName = fullName;
+  //   profile.userName = userName;
+  //   profile.email = email;
+  //   profile.password = password;
+  //   return await this.repo.save(profile);
+  // }
 
+  async create(dto: CreateProfileDto, role: UserRoleType) {
+    const user = await this.userService.create({
+      password: dto.password,
+      role: role,
+      email: dto.email,
+    });
+    if (user) {
+      const profile = this.repo.create(dto);
+      profile.user = user;
+      return this.repo.save(profile);
+    }
+
+    throw new BadRequestException('No user');
+  }
   findAll() {
     return this.repo.find();
   }

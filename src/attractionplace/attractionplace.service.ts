@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAttractionplaceDto } from './dto/create-attractionplace.dto';
 import { UpdateAttractionplaceDto } from './dto/update-attractionplace.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,15 +31,21 @@ export class AttractionplaceService {
     return this.repo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} attractionplace`;
+  findOne(id: string) {
+    return this.repo.findOneBy({ id });
   }
 
   update(id: number, updateAttractionplaceDto: UpdateAttractionplaceDto) {
     return `This action updates a #${id} attractionplace`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} attractionplace`;
+  async remove(id: string) {
+    const datas = await this.findOne(id);
+
+    if (!datas) {
+      throw new NotFoundException('data not found');
+    }
+
+    return this.repo.remove(datas);
   }
 }

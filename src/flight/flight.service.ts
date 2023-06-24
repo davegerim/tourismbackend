@@ -13,6 +13,7 @@ export class FlightService {
   ) {}
   async create(createProfileDto: CreateFlightDto): Promise<CreateFlightDto> {
     const {
+      statuss,
       from,
       to,
       calander,
@@ -24,6 +25,7 @@ export class FlightService {
       cabinClass,
     } = createProfileDto;
     const profile = new Flight();
+    profile.statuss = statuss;
     profile.from = from;
     profile.to = to;
     profile.calander = calander;
@@ -37,7 +39,7 @@ export class FlightService {
     return await this.repo.save(profile);
   }
   findAll() {
-    return `This action returns all flight`;
+    return this.repo.find();
   }
 
   findOne(id: number) {

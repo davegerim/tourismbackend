@@ -10,14 +10,24 @@ import {
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-
+import { UserRoleType } from 'src/user/enums/user-role.enum';
+import { Public } from 'src/auth/jwt-public';
+@Public()
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
+  // @Post('/new')
+  // create(@Body() createProfileDto: CreateProfileDto) {
+  //   return this.profileService.create(createProfileDto);
+  // }
+
   @Post('/new')
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profileService.create(createProfileDto);
+  newProfle(@Body() body: CreateProfileDto) {
+    return this.profileService.create(
+      body,
+      body.role || UserRoleType.ADMINISTRATOR,
+    );
   }
 
   @Get()

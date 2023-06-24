@@ -5,6 +5,9 @@ export class Flight {
   id: string;
 
   @Column()
+  statuss: string;
+
+  @Column()
   from: string;
 
   @Column()
@@ -16,8 +19,8 @@ export class Flight {
   @Column()
   departureDate: string;
 
-  @Column()
-  returnDate: string;
+  @Column({ nullable: true })
+  returnDate?: string;
 
   @Column()
   male: string;

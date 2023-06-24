@@ -21,6 +21,18 @@ export class User {
   @Column()
   role: string;
 
+  @Column({ default: false })
+  pwd_change_required: boolean;
+
+  @Column({ default: false })
+  email_change_required: boolean;
+
+  @Column({ default: false })
+  email_confirmed: boolean;
+
+  @Column({ default: false })
+  phone_confirmed: boolean;
+
   @OneToOne(() => Profile)
   @JoinColumn()
   profile: Profile;

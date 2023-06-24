@@ -4,6 +4,10 @@ import { IsString } from 'class-validator';
 export class CreateFlightDto {
   @ApiProperty()
   @IsString()
+  statuss: string;
+
+  @ApiProperty()
+  @IsString()
   from: string;
 
   @ApiProperty()
@@ -20,7 +24,7 @@ export class CreateFlightDto {
 
   @ApiProperty()
   @IsString()
-  returnDate: string;
+  returnDate?: string;
 
   @ApiProperty()
   @IsString()
