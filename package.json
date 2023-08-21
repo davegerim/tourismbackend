@@ -1,6 +1,9 @@
 {
   "name": "tourism_backend",
   "version": "0.0.1",
+  "engines": {
+    "node": "18.x"
+  },
   "description": "",
   "author": "",
   "private": true,
