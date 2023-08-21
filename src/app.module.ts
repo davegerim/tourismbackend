@@ -27,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { Room } from './hotel/entities/room.entity';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { RolesGuard } from './auth/guards/roles.guard';
           Hotelreservation,
           Flight,
           Tripreservation,
+          Room,
         ],
         synchronize: true,
       }),

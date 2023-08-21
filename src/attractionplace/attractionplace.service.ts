@@ -16,7 +16,7 @@ export class AttractionplaceService {
   ) {}
 
   async create(createProfileDto: CreateAttractionplaceDto) {
-    const { placeName, description, image, price, rate, cityId } =
+    const { placeName, description, image, price, rate, City1 } =
       createProfileDto;
     const place = new Attractionplace();
     place.price = price;
@@ -24,7 +24,9 @@ export class AttractionplaceService {
     place.placeName = placeName;
     place.description = description;
     place.image = image;
-    place.City1 = await this.cityRepo.findOneBy({ id: cityId });
+    place.City1 = await this.cityRepo.findOneBy({ id: City1 });
+    console.log(City1);
+
     return await this.repo.save(place);
   }
   findAll() {

@@ -15,6 +15,7 @@ import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/auth/jwt-public';
+import { CreateRoomDto } from './dto/create-room.dto';
 
 @Public()
 @Controller('hotel')
@@ -25,6 +26,12 @@ export class HotelController {
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.hotelService.create(createHotelDto);
   }
+
+  @Post('/addroom/:id')
+  createroom(@Body() createProfile1Dto: CreateRoomDto, id: string) {
+    return this.hotelService.createroom(createProfile1Dto, id);
+  }
+
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(@UploadedFile() file, @Body() body) {
@@ -36,6 +43,10 @@ export class HotelController {
   @Get()
   findAll() {
     return this.hotelService.findAll();
+  }
+  @Get('/room')
+  findAlls() {
+    return this.hotelService.findAlls();
   }
 
   @Get(':id')

@@ -1,10 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
-export class CreateAttractionplaceDto {
+export class CreateRoomDto {
   @ApiProperty()
   @IsString()
-  placeName: string;
+  roomName: string;
+
+  @ApiProperty()
+  @IsString()
+  bed: string;
+
+  @ApiProperty()
+  @IsString()
+  person: string;
+
+  @ApiProperty()
+  @IsString()
+  area: string;
 
   @ApiProperty()
   @IsString()
@@ -24,5 +36,5 @@ export class CreateAttractionplaceDto {
 
   @ApiProperty()
   @IsString()
-  City1: string;
+  Hotel1: string;
 }
