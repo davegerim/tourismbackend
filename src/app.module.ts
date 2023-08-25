@@ -28,6 +28,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Room } from './hotel/entities/room.entity';
+import { SubscribeController } from './subscribe/subscribe.controller';
 
 @Module({
   imports: [
@@ -80,7 +81,7 @@ import { Room } from './hotel/entities/room.entity';
 
     TripreservationModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, SubscribeController],
   providers: [
     AppService,
 

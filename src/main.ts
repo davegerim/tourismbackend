@@ -3,6 +3,9 @@ import { json, urlencoded } from 'body-parser';
 import { AppModule } from './app.module';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist/swagger-module';
+import * as cors from 'cors';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
 
 async function bootstrap() {
   const cors = require('cors');
@@ -18,8 +21,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.use(cors({ origin: 'http://localhost:3000' }));
-  app.use(json({ limit: '50mb' }));
+  // app.use(cors({ origin: 'http://localhost:3000' }));
+  // app.use(json({ limit: '50mb' }));
+  app.enableCors();
   app.use(urlencoded({ limit: '50mb', extended: true }));
 
   await app.listen(3000);
