@@ -28,7 +28,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Room } from './hotel/entities/room.entity';
-import { SubscribeController } from './subscribe/subscribe.controller';
 
 @Module({
   imports: [
@@ -42,7 +41,7 @@ import { SubscribeController } from './subscribe/subscribe.controller';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
-        ssl: true,
+        // ssl: true,
         entities: [
           Profile,
           User,
@@ -81,7 +80,7 @@ import { SubscribeController } from './subscribe/subscribe.controller';
 
     TripreservationModule,
   ],
-  controllers: [AppController, SubscribeController],
+  controllers: [AppController],
   providers: [
     AppService,
 

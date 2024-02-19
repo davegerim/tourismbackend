@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripreservationDto } from './dto/create-tripreservation.dto';
 import { UpdateTripreservationDto } from './dto/update-tripreservation.dto';
 import { Tripreservation } from './entities/tripreservation.entity';
@@ -37,11 +37,17 @@ export class TripreservationService {
     return this.repo.findOneBy({ id });
   }
 
-  update(id: number, updateTripreservationDto: UpdateTripreservationDto) {
-    return `This action updates a #${id} tripreservation`;
+  update(id: number, UpdateTripreservationDto: UpdateTripreservationDto) {
+    return `This action updates a #${id} attractionplace`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tripreservation`;
+  async remove(id: string) {
+    const datas = await this.findOne(id);
+
+    if (!datas) {
+      throw new NotFoundException('data not found');
+    }
+
+    return this.repo.remove(datas);
   }
 }

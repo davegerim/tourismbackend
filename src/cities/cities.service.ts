@@ -7,7 +7,8 @@ import { City } from './entities/city.entity';
 
 @Injectable()
 export class CitiesService {
-  async getAttractionPlace(id: string) { //   return `This action updates a #${id} city`;
+  async getAttractionPlace(id: string) {
+    //   return `This action updates a #${id} city`;
     var city = await this.repo.findOneBy({ id });
     return city.attractionplace1;
   }
@@ -25,11 +26,11 @@ export class CitiesService {
     city.image = image;
     return await this.repo.save(city);
   }
-  async saveImage(cityId: number, imageData: string) {
-    const city = await this.repo.findOne({ where: { id: cityId.toString() } });
-    city.image = imageData;
-    await this.repo.save(city);
-  }
+  // async saveImage(cityId: number, imageData: string) {
+  //   const city = await this.repo.findOne({ where: { id: cityId.toString() } });
+  //   city.image = imageData;
+  //   await this.repo.save(city);
+  // }
 
   findAll() {
     return this.repo.find();

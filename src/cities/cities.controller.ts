@@ -25,13 +25,13 @@ export class CitiesController {
   create(@Body() createCityDto: CreateCityDto) {
     return this.citiesService.create(createCityDto);
   }
-  @Post('upload-image')
-  @UseInterceptors(FileInterceptor('image'))
-  async uploadImage(@UploadedFile() file, @Body() body) {
-    const cityId = body.cityId;
-    const imageData = file.buffer;
-    await this.citiesService.saveImage(cityId, imageData);
-  }
+  // @Post('upload-image')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async uploadImage(@UploadedFile() file, @Body() body) {
+  //   const cityId = body.cityId;
+  //   const imageData = file.buffer;
+  //   await this.citiesService.saveImage(cityId, imageData);
+  // }
 
   @Get()
   findAll() {

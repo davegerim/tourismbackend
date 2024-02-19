@@ -13,19 +13,19 @@ export class City {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   cityName: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @OneToMany(
     () => Attractionplace,
     (attractionplace1) => attractionplace1.City1,
-    { eager: true },
+    { eager: true, cascade: true },
   )
   attractionplace1: Attractionplace;
 }

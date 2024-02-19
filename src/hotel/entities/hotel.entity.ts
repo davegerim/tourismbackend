@@ -11,9 +11,12 @@ export class Hotel {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
-  @OneToMany(() => Room, (room1) => room1.Hotel1, { eager: true })
-  room1: Room;
+  @OneToMany(() => Room, (room1) => room1.Hotel1, {
+    eager: true,
+    cascade: true,
+  })
+  room1: Room[];
 }

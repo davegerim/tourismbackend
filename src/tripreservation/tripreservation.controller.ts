@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { TripreservationService } from './tripreservation.service';
 import { CreateTripreservationDto } from './dto/create-tripreservation.dto';
@@ -36,13 +37,13 @@ export class TripreservationController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateTripreservationDto: UpdateTripreservationDto,
+    @Body() UpdateTripreservationDto: UpdateTripreservationDto,
   ) {
-    return this.tripreservationService.update(+id, updateTripreservationDto);
+    return this.tripreservationService.update(+id, UpdateTripreservationDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tripreservationService.remove(+id);
+  @Delete('/:id')
+  deleteProfile(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.tripreservationService.remove(id);
   }
 }
