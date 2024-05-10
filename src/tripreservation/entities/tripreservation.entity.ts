@@ -20,6 +20,8 @@ export class Tripreservation {
   @Column()
   endDate: string;
 
+  @Column()
+  placeId: string;
   // @ManyToOne(
   //   () => Attractionplace,
   //   (Attractionplace1) => Attractionplace1.Tripreservation1,

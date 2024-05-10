@@ -16,22 +16,29 @@ export class HotelreservationService {
     createProfileDto: CreateHotelreservationDto,
   ): Promise<CreateHotelreservationDto> {
     const {
-      firstName,
+      fullname,
       phoneNumber,
-      lastName,
+      email,
       roomType,
       noofGuests,
       startDate,
       endDate,
+      roomPrice,
+      status,
+      hotels,
+    
     } = createProfileDto;
     const profile = new Hotelreservation();
-    profile.firstName = firstName;
+    profile.fullname = fullname;
     profile.phoneNumber = phoneNumber;
-    profile.lastName = lastName;
+    profile.email = email;
     profile.roomType = roomType;
     profile.noofGuests = noofGuests;
     profile.startDate = startDate;
     profile.endDate = endDate;
+    profile.roomPrice = roomPrice;
+    profile.status = status
+    profile.hotels = hotels;
 
     return await this.repo.save(profile);
   }

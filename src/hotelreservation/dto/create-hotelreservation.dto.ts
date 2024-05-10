@@ -4,11 +4,11 @@ import { IsString } from 'class-validator';
 export class CreateHotelreservationDto {
   @ApiProperty()
   @IsString()
-  firstName: string;
+  fullname: string;
 
   @ApiProperty()
   @IsString()
-  lastName: string;
+  email: string;
 
   @ApiProperty()
   @IsString()
@@ -29,4 +29,16 @@ export class CreateHotelreservationDto {
   @ApiProperty()
   @IsString()
   endDate: string;
+
+  @ApiProperty()
+  @IsString()
+  roomPrice: string;
+
+  @ApiProperty()
+  @IsString()
+  status: string;
+
+  @ApiProperty()
+  @IsString()
+  hotels: string;
 }

@@ -1,14 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Hotel } from 'src/hotel/entities/hotel.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 @Entity()
 export class Hotelreservation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  firstName: string;
+  fullname: string;
 
   @Column()
-  lastName: string;
+  email: string;
 
   @Column()
   phoneNumber: string;
@@ -24,4 +31,13 @@ export class Hotelreservation {
 
   @Column()
   endDate: string;
+
+  @Column({ nullable: true })
+  roomPrice: string;
+
+  @Column({ nullable: true, default: "pending" })
+  status: string;
+
+  @Column()
+  hotels: string;
 }

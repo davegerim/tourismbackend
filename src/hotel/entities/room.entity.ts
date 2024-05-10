@@ -30,11 +30,17 @@ export class Room {
   @Column({ nullable: true })
   image: string;
 
-  @Column()
-  price: string;
+  @Column({ nullable: true })
+  roomType: string;
 
   @Column()
-  rate: string;
+  price: number;
+
+  @Column()
+  rate: number;
+
+  @Column({ nullable: true })
+  status: string;
 
   @ManyToOne(() => Hotel, (Hotel1) => Hotel1.room1)
   @JoinColumn() // specify inverse side as a second parameter

@@ -21,4 +21,8 @@ export class CreateTripreservationDto {
   @ApiProperty()
   @IsString()
   endDate: string;
+
+  @ApiProperty()
+  @IsString()
+  placeId: string;
 }

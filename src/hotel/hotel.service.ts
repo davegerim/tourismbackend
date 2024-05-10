@@ -19,17 +19,19 @@ export class HotelService {
   async create(createProfileDto: CreateHotelDto): Promise<CreateHotelDto> {
     console.log(createProfileDto);
 
-    const { hotelName, description, image } = createProfileDto;
+    const { hotelName, description, image, cityLocation, hotelType, rating } =
+      createProfileDto;
     const hotel = new Hotel();
     hotel.hotelName = hotelName;
     hotel.description = description;
+    hotel.cityLocation = cityLocation;
+    hotel.hotelType = hotelType;
+    hotel.rating = rating;
     hotel.image = image;
     return await this.repo.save(hotel);
   }
 
-  async createroom(createProfile1Dto: CreateRoomDto, id) {
-    console.log(createProfile1Dto);
-
+  async createroom(createRoomDto: CreateRoomDto, id: string) {
     const {
       roomName,
       bed,
@@ -39,8 +41,10 @@ export class HotelService {
       image,
       price,
       rate,
+      status,
+      roomType,
       Hotel1,
-    } = createProfile1Dto;
+    } = createRoomDto;
     const room = new Room();
     room.roomName = roomName;
     room.description = description;
@@ -50,6 +54,8 @@ export class HotelService {
     room.area = area;
     room.price = price;
     room.rate = rate;
+    room.status = status;
+    room.roomType = roomType;
     room.Hotel1 = await this.repo.findOneBy({ id: Hotel1 });
 
     return await this.roomrepo.save(room);

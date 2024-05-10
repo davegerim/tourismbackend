@@ -15,7 +15,7 @@ export class TripreservationService {
   async create(
     createProfileDto: CreateTripreservationDto,
   ): Promise<CreateTripreservationDto> {
-    const { firstName, lastName, noofGuests, startDate, endDate } =
+    const { firstName, lastName, noofGuests, startDate, endDate, placeId } =
       createProfileDto;
     const profile = new Tripreservation();
     profile.firstName = firstName;
@@ -25,6 +25,7 @@ export class TripreservationService {
     profile.noofGuests = noofGuests;
     profile.startDate = startDate;
     profile.endDate = endDate;
+    profile.placeId = placeId;
 
     return await this.repo.save(profile);
   }

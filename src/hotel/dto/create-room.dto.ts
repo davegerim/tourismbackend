@@ -24,15 +24,23 @@ export class CreateRoomDto {
 
   @ApiProperty()
   @IsString()
+  roomType: string;
+
+  @ApiProperty()
+  @IsString()
   image: string;
 
   @ApiProperty()
   @IsString()
-  price: string;
+  price: number;
 
   @ApiProperty()
   @IsString()
-  rate: string;
+  rate: number;
+
+  @ApiProperty()
+  @IsString()
+  status: string;
 
   @ApiProperty()
   @IsString()
