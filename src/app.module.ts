@@ -28,6 +28,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { Room } from './hotel/entities/room.entity';
+import { OtpModule } from './otp/otp.module';
+import { Otp } from './otp/entities/otp.entity';
 
 @Module({
   imports: [
@@ -53,6 +55,7 @@ import { Room } from './hotel/entities/room.entity';
           Flight,
           Tripreservation,
           Room,
+          Otp
         ],
         synchronize: true,
       }),
@@ -79,6 +82,8 @@ import { Room } from './hotel/entities/room.entity';
     AuthModule,
 
     TripreservationModule,
+
+    OtpModule,
   ],
   controllers: [AppController],
   providers: [

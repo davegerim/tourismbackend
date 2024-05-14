@@ -1,8 +1,10 @@
+import { Otp } from 'src/otp/entities/otp.entity';
 import { Profile } from 'src/profile/entities/profile.entity';
 import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -20,6 +22,9 @@ export class User {
 
   @Column()
   role: string;
+
+  @OneToMany(() => User, (user) => user.otp)
+  otp: Otp[];
 
   @Column({ default: false })
   pwd_change_required: boolean;

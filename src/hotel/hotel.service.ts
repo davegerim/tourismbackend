@@ -2,10 +2,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { Hotel } from './entities/hotel.entity';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { Room } from './entities/room.entity';
+import { UpdateRoomDto } from './dto/update-room.dto';
 
 @Injectable()
 export class HotelService {
@@ -81,8 +82,21 @@ export class HotelService {
     return this.repo.findOneBy({ id });
   }
 
-  update(id: number, updateHotelDto: UpdateHotelDto) {
-    return `This action updates a #${id} hotel`;
+  async updates(id: string, updateDto: UpdateRoomDto): Promise<Room> {
+    const profile = await this.roomrepo.findOneBy({ id });
+
+    if (!profile) {
+      throw new NotFoundException(`profile with ID $id not found`);
+    }
+
+      const updateData: DeepPartial<Room> = {
+        status: updateDto.status,
+        // Map other properties if needed
+      };
+    // Update user properties with the values from updateUserDto
+    this.roomrepo.merge(profile, updateData);
+
+    return this.roomrepo.save(profile);
   }
 
   async remove(id: string) {

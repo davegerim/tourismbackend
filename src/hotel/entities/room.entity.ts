@@ -39,7 +39,7 @@ export class Room {
   @Column()
   rate: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: 'available' })
   status: string;
 
   @ManyToOne(() => Hotel, (Hotel1) => Hotel1.room1)

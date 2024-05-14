@@ -7,11 +7,15 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Put,
+  NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from 'src/auth/jwt-public';
+import { User } from './entities/user.entity';
 @Public()
 @Controller('user')
 export class UserController {
@@ -30,6 +34,25 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.userService.findOne(id);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateUserDto,
+  ): Promise<User> {
+    try {
+      const updatedProfile = await this.userService.updates(
+        id,
+        updateProfileDto,
+      );
+      return updatedProfile;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw new InternalServerErrorException('Internal Server Error');
+    }
   }
 
   @Patch(':id')

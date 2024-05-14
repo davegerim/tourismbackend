@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -39,6 +43,24 @@ export class UserService {
 
   findOne(email: string) {
     return this.repo.findOneBy({ email });
+  }
+
+  async updates(id: string, updateProfileDto: UpdateUserDto): Promise<User> {
+    const profile = await this.repo.findOneBy({ id });
+
+    if (!profile) {
+      throw new NotFoundException(`profile with ID $id not found`);
+    }
+    if (updateProfileDto.password) {
+      // Hash the new password
+      const hashedPassword = await this.hashPassword(updateProfileDto.password);
+      // Update the profile with the hashed password
+      this.repo.merge(profile, updateProfileDto);
+      profile.password = hashedPassword;
+    }
+    // Update user properties with the values from updateUserDto
+
+    return this.repo.save(profile);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
