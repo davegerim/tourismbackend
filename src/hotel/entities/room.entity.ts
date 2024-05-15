@@ -31,6 +31,12 @@ export class Room {
   image: string;
 
   @Column({ nullable: true })
+  image2: string;
+
+  @Column({ nullable: true })
+  image3: string;
+
+  @Column({ nullable: true })
   roomType: string;
 
   @Column()

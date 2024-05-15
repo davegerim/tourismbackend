@@ -40,6 +40,8 @@ export class HotelService {
       area,
       description,
       image,
+      image2,
+      image3,
       price,
       rate,
       status,
@@ -50,6 +52,10 @@ export class HotelService {
     room.roomName = roomName;
     room.description = description;
     room.image = image;
+    room.image2 = image2;
+
+    room.image3 = image3;
+
     room.bed = bed;
     room.person = person;
     room.area = area;

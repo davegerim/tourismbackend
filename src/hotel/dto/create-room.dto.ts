@@ -32,6 +32,14 @@ export class CreateRoomDto {
 
   @ApiProperty()
   @IsString()
+  image2: string;
+
+  @ApiProperty()
+  @IsString()
+  image3: string;
+
+  @ApiProperty()
+  @IsString()
   price: number;
 
   @ApiProperty()
