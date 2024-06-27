@@ -7,11 +7,15 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Put,
+  NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { TripreservationService } from './tripreservation.service';
 import { CreateTripreservationDto } from './dto/create-tripreservation.dto';
 import { UpdateTripreservationDto } from './dto/update-tripreservation.dto';
 import { Public } from 'src/auth/jwt-public';
+import { Tripreservation } from './entities/tripreservation.entity';
 @Public()
 @Controller('tripreservation')
 export class TripreservationController {
@@ -40,6 +44,25 @@ export class TripreservationController {
     @Body() UpdateTripreservationDto: UpdateTripreservationDto,
   ) {
     return this.tripreservationService.update(+id, UpdateTripreservationDto);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateDto: UpdateTripreservationDto,
+  ): Promise<Tripreservation> {
+    try {
+      const updatedProfile = await this.tripreservationService.updates(
+        id,
+        updateDto,
+      );
+      return updatedProfile;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw new InternalServerErrorException('Internal Server Error');
+    }
   }
 
   @Delete('/:id')

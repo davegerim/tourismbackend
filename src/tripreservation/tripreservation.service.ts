@@ -3,7 +3,7 @@ import { CreateTripreservationDto } from './dto/create-tripreservation.dto';
 import { UpdateTripreservationDto } from './dto/update-tripreservation.dto';
 import { Tripreservation } from './entities/tripreservation.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 
 @Injectable()
 export class TripreservationService {
@@ -40,6 +40,26 @@ export class TripreservationService {
 
   update(id: number, UpdateTripreservationDto: UpdateTripreservationDto) {
     return `This action updates a #${id} attractionplace`;
+  }
+
+  async updates(
+    id: string,
+    updateDto: UpdateTripreservationDto,
+  ): Promise<Tripreservation> {
+    const profile = await this.repo.findOneBy({ id });
+
+    if (!profile) {
+      throw new NotFoundException(`profile with ID $id not found`);
+    }
+
+    const updateData: DeepPartial<Tripreservation> = {
+      status: updateDto.status,
+      // Map other properties if needed
+    };
+    // Update user properties with the values from updateUserDto
+    this.repo.merge(profile, updateData);
+
+    return this.repo.save(profile);
   }
 
   async remove(id: string) {

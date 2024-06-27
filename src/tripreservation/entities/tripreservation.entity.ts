@@ -22,6 +22,9 @@ export class Tripreservation {
 
   @Column()
   placeId: string;
+
+  @Column({ nullable: true, default: 'pending' })
+  status: string;
   // @ManyToOne(
   //   () => Attractionplace,
   //   (Attractionplace1) => Attractionplace1.Tripreservation1,
